@@ -36,6 +36,8 @@ class GUI:
 		self.builder.connect_signals(self)
 
 		self.edit_widget = None # variable placeholder for editing cells
+		self.total_length = Decimal()
+		
 		self.calc_store = self.builder.get_object('calc_store')
 		self.treeview = self.builder.get_object("calc_treeview")
 		self.tree_selection = self.builder.get_object("calc_tree_selection")
@@ -98,7 +100,7 @@ class GUI:
 		next_column = self.treeview.get_column(col)
 		GLib.timeout_add(10, self.treeview.set_cursor, path, next_column, True)
 
-	def move_cursor_to_next_row (self, entry):
+	def move_cursor_to_next_row (self, entry = None):
 		model, path = self.tree_selection.get_selected_rows()
 		titer = model.iter_next(model.get_iter(path))
 		if titer is None:
@@ -148,36 +150,48 @@ class GUI:
 			return
 		number = button.get_label()
 		subprocess.call(['xte', "str 7/8"])
+		GLib.timeout_add(10, self.edit_widget.editing_done)
+		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def three_quarter_clicked (self, button):
 		if self.edit_widget == None:
 			return
 		number = button.get_label()
 		subprocess.call(['xte', "str 3/4"])
+		GLib.timeout_add(10, self.edit_widget.editing_done)
+		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def five_eigth_clicked (self, button):
 		if self.edit_widget == None:
 			return
 		number = button.get_label()
 		subprocess.call(['xte', "str 5/8"])
+		GLib.timeout_add(10, self.edit_widget.editing_done)
+		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def one_half_clicked (self, button):
 		if self.edit_widget == None:
 			return
 		number = button.get_label()
 		subprocess.call(['xte', "str 1/2"])
+		GLib.timeout_add(10, self.edit_widget.editing_done)
+		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def three_eigth_clicked (self, button):
 		if self.edit_widget == None:
 			return
 		number = button.get_label()
 		subprocess.call(['xte', "str 3/8"])
+		GLib.timeout_add(10, self.edit_widget.editing_done)
+		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def one_quarter_clicked (self, button):
 		if self.edit_widget == None:
 			return
 		number = button.get_label()
 		subprocess.call(['xte', "str 1/4"])
+		GLib.timeout_add(10, self.edit_widget.editing_done)
+		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def one_eigth_clicked (self, button):
 		if self.edit_widget == None:
@@ -185,6 +199,7 @@ class GUI:
 		number = button.get_label()
 		subprocess.call(['xte', "str 1/8"])
 		GLib.timeout_add(10, self.edit_widget.editing_done)
+		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def treeview_tab_key (self, treeview, event):
 		keyname = Gdk.keyval_name(event.keyval)
@@ -207,6 +222,12 @@ class GUI:
 				path = self.calc_store.get_path(titer)
 				next_column = columns[0]
 			GLib.timeout_add(10, treeview.set_cursor, path, next_column, True)
+
+	def price_per_foot_changed (self, spinbutton):
+		self.calculate_total_price ()
+
+	def price_spinbutton_focus_in_event (self, spinbutton, event):
+		GLib.idle_add(spinbutton.select_region, 0, -1)
 
 	### end callbacks
 
@@ -238,16 +259,16 @@ class GUI:
 		else:
 			self.calc_store[path][4] = '''%s' %s-%s"''' % (feet, int(inches), fractions)
 			self.calc_store[path][5] = str(row_sum)
-		self.calculate_total()
+		self.calculate_total_length()
 
-	def calculate_total (self):
-		total_length = Decimal()
+	def calculate_total_length (self):
+		self.total_length = Decimal()
 		total_qty = int()
 		for row in self.calc_store:
-			total_length += Decimal(row[5])
+			self.total_length += Decimal(row[5])
 			total_qty += row[0]
-		feet = int(total_length / 12)
-		inches = total_length % 12
+		feet = int(self.total_length / 12)
+		inches = self.total_length % 12
 		fractions = Fraction(inches - int(inches))
 		if fractions == 0:
 			label = '''%s' %s"''' % (feet, int(inches))
@@ -256,6 +277,16 @@ class GUI:
 			label = '''%s' %s-%s"''' % (feet, int(inches), fractions)
 			self.builder.get_object("total_length_label").set_label(label)
 		self.builder.get_object("total_qty_label").set_label(str(total_qty))
+		self.calculate_total_price ()
+
+	def calculate_total_price (self):
+		price_per_foot = self.builder.get_object("price_spinbutton").get_text()
+		if price_per_foot == '0.00' or self.total_length == Decimal('0.00'):
+			self.builder.get_object("total_price_label").set_label("0.00")
+			return
+		total_price = ( Decimal(price_per_foot) * self.total_length ) / Decimal(12)
+		total_price = "${:,.2f}".format(total_price)
+		self.builder.get_object("total_price_label").set_label(total_price)
 			
 
 def main():
