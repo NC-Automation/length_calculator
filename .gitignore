@@ -150,3 +150,5 @@ dmypy.json
 /src/Makefile
 /src/Makefile.in
 /stamp-h1
+/.anjuta/session/anjuta.session
+/.anjuta/session/dock-layout.xml
