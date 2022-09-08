@@ -137,6 +137,12 @@ class GUI:
 		number = button.get_label()
 		subprocess.call(['xte', "key BackSpace"])
 
+	def enter_clicked (self, button):
+		if self.edit_widget == None:
+			return
+		number = button.get_label()
+		subprocess.call(['xte', "key Return"])
+
 	def seven_eigth_clicked (self, button):
 		if self.edit_widget == None:
 			return
