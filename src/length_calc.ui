@@ -43,7 +43,7 @@
     <property name="icon-name">applications-science</property>
     <signal name="destroy" handler="on_window_destroy" swapped="no"/>
     <child>
-      <object class="GtkBox">
+      <object class="GtkBox" id="main_box">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <child>

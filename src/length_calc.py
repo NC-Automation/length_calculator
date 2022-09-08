@@ -22,7 +22,7 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GLib
 from decimal import Decimal
 from fractions import Fraction
-import os, sys, subprocess, re
+import os, sys, subprocess, re, decimal
 
 
 UI_FILE = "src/length_calc.ui"
@@ -59,9 +59,24 @@ class GUI:
 		self.calculate_row_sum(path)
 
 	def inches_edited (self, cellrenderertext, path, text):
+		inches = text
+		try:   # check if valid Decimal otherwise convert to decimal
+			Decimal(text) 
+		except decimal.InvalidOperation:
+			try: # on error go back to same cell
+				inches = str(self.architectural_to_decimal(text))
+			except decimal.InvalidOperation:
+				self.builder.get_object('main_box').set_visible(False)
+				GLib.timeout_add(500, self.show_box, path)
+				return True
 		self.calc_store[path][2] = text
-		self.calc_store[path][3] = text
+		self.calc_store[path][3] = inches
 		self.calculate_row_sum(path)
+
+	def show_box (self, path):
+		self.builder.get_object('main_box').set_visible(True)
+		column = self.treeview.get_column(2)
+		GLib.timeout_add(10, self.treeview.set_cursor, path, column, True)
 
 	def qty_editing_started (self, cellrenderer, celleditable, path):
 		self.edit_widget = celleditable
@@ -174,6 +189,8 @@ class GUI:
 			columns.append(treeview.get_column(i))
 		colnum = columns.index(col)
 		if keyname == "Tab":
+			# critical code to keep the 'activate' signal from firing, resulting in skipping a column
+			self.edit_widget.editing_done()  
 			if colnum + 1 < len(columns):
 				next_column = columns[colnum + 1]
 			else:
@@ -186,6 +203,19 @@ class GUI:
 			GLib.timeout_add(10, treeview.set_cursor, path, next_column, True)
 
 	### end callbacks
+
+	def architectural_to_decimal (self, text):
+		''' Convert architectural measurements to inches.'''
+		# See http://stackoverflow.com/questions/8675714
+		text = text.replace('"', '').replace(' ', '')
+		feet, sep, inches = text.rpartition("'")
+		floatfeet, sep, fracfeet = feet.rpartition('-')
+		feetnum, sep, feetdenom = fracfeet.partition('/')
+		feet = Decimal(floatfeet or 0) + Decimal(feetnum or 0) / Decimal(feetdenom or 1)
+		floatinches, sep, fracinches = inches.rpartition('-')
+		inchesnum, sep, inchesdenom = fracinches.partition('/')
+		inches = Decimal(floatinches or 0) + Decimal(inchesnum or 0) / Decimal(inchesdenom or 1)
+		return feet * Decimal(12) + inches
 
 	def calculate_row_sum (self, path):
 		qty = self.calc_store[path][0]
