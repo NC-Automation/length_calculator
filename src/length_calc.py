@@ -204,7 +204,7 @@ class GUI:
 				titer = tmodel.iter_next(tmodel.get_iter(path))
 				if titer is None:
 					titer = tmodel.append([0, 0, '0', '0', '0', '0'])
-					path = self.calc_store.get_path(titer)
+				path = self.calc_store.get_path(titer)
 				next_column = columns[0]
 			GLib.timeout_add(10, treeview.set_cursor, path, next_column, True)
 
