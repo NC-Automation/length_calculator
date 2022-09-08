@@ -37,8 +37,10 @@
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <property name="border-width">10</property>
-    <property name="default-width">500</property>
+    <property name="title" translatable="yes">Length calculator</property>
+    <property name="default-width">800</property>
     <property name="default-height">400</property>
+    <property name="icon-name">applications-science</property>
     <signal name="destroy" handler="on_window_destroy" swapped="no"/>
     <child>
       <object class="GtkBox">
@@ -61,6 +63,8 @@
                 </child>
                 <child>
                   <object class="GtkTreeViewColumn">
+                    <property name="sizing">fixed</property>
+                    <property name="fixed-width">75</property>
                     <property name="title" translatable="yes">Qty</property>
                     <child>
                       <object class="GtkCellRendererText">
@@ -76,6 +80,8 @@
                 </child>
                 <child>
                   <object class="GtkTreeViewColumn">
+                    <property name="sizing">fixed</property>
+                    <property name="fixed-width">75</property>
                     <property name="title" translatable="yes">Feet</property>
                     <child>
                       <object class="GtkCellRendererText">
@@ -91,6 +97,8 @@
                 </child>
                 <child>
                   <object class="GtkTreeViewColumn">
+                    <property name="sizing">fixed</property>
+                    <property name="fixed-width">75</property>
                     <property name="title" translatable="yes">Inches</property>
                     <child>
                       <object class="GtkCellRendererText">
@@ -106,6 +114,8 @@
                 </child>
                 <child>
                   <object class="GtkTreeViewColumn">
+                    <property name="sizing">fixed</property>
+                    <property name="fixed-width">75</property>
                     <property name="title" translatable="yes">Sum</property>
                     <child>
                       <object class="GtkCellRendererText"/>
