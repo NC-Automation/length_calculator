@@ -116,6 +116,11 @@ class GUI:
 		number = button.get_label()
 		subprocess.call(['xte', "key %s" % number])
 
+	def dot_clicked_cb (self, button):
+		if self.edit_widget == None:
+			return
+		subprocess.call(['xte', "key period"])
+
 	def slash_clicked_cb (self, button):
 		if self.edit_widget == None:
 			return
