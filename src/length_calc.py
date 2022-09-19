@@ -110,100 +110,79 @@ class GUI:
 		GLib.timeout_add(10, self.treeview.set_cursor, path, column, True)
 
 	def number_clicked_cb (self, button):
-		if self.edit_widget == None:
-			return
 		# consolidated function(s) by getting the number from the button's label
 		number = button.get_label()
 		subprocess.call(['xte', "key %s" % number])
 
 	def dot_clicked_cb (self, button):
-		if self.edit_widget == None:
-			return
 		subprocess.call(['xte', "key period"])
 
 	def slash_clicked_cb (self, button):
-		if self.edit_widget == None:
-			return
 		number = button.get_label()
 		subprocess.call(['xte', "key slash"])
 
 	def hyphen_clicked_cb (self, button):
-		if self.edit_widget == None:
-			return
 		number = button.get_label()
 		subprocess.call(['xte', "key minus"])
 
 	def space_clicked_cb (self, button):
-		if self.edit_widget == None:
-			return
 		subprocess.call(['xte', "key space"])
 
 	def backspace_clicked_cb (self, button):
-		if self.edit_widget == None:
-			return
 		number = button.get_label()
 		subprocess.call(['xte', "key BackSpace"])
 
 	def enter_clicked (self, button):
-		if self.edit_widget == None:
-			return
 		number = button.get_label()
 		subprocess.call(['xte', "key Return"])
 
 	def seven_eigth_clicked (self, button):
-		if self.edit_widget == None:
-			return
 		number = button.get_label()
 		subprocess.call(['xte', "str -7/8"])
-		GLib.timeout_add(10, self.edit_widget.editing_done)
+		if self.edit_widget != None:
+			GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def three_quarter_clicked (self, button):
-		if self.edit_widget == None:
-			return
 		number = button.get_label()
 		subprocess.call(['xte', "str -3/4"])
-		GLib.timeout_add(10, self.edit_widget.editing_done)
+		if self.edit_widget != None:
+			GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def five_eigth_clicked (self, button):
-		if self.edit_widget == None:
-			return
 		number = button.get_label()
 		subprocess.call(['xte', "str -5/8"])
-		GLib.timeout_add(10, self.edit_widget.editing_done)
+		if self.edit_widget != None:
+			GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def one_half_clicked (self, button):
-		if self.edit_widget == None:
-			return
 		number = button.get_label()
 		subprocess.call(['xte', "str -1/2"])
-		GLib.timeout_add(10, self.edit_widget.editing_done)
+		if self.edit_widget != None:
+			GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def three_eigth_clicked (self, button):
-		if self.edit_widget == None:
-			return
 		number = button.get_label()
 		subprocess.call(['xte', "str -3/8"])
-		GLib.timeout_add(10, self.edit_widget.editing_done)
+		if self.edit_widget != None:
+			GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def one_quarter_clicked (self, button):
-		if self.edit_widget == None:
-			return
 		number = button.get_label()
 		subprocess.call(['xte', "str -1/4"])
-		GLib.timeout_add(10, self.edit_widget.editing_done)
+		if self.edit_widget != None:
+			GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def one_eigth_clicked (self, button):
-		if self.edit_widget == None:
-			return
 		number = button.get_label()
 		subprocess.call(['xte', "str -1/8"])
-		GLib.timeout_add(10, self.edit_widget.editing_done)
+		if self.edit_widget != None:
+			GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
 	def treeview_tab_key (self, treeview, event):
