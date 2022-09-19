@@ -45,10 +45,16 @@ class GUI:
 		window = self.builder.get_object('window')
 		window.show_all()
 
+		GLib.timeout_add(150, self.select_first_entry) # wait until window is loaded
+
 	def on_window_destroy(self, window):
 		Gtk.main_quit()
 
 	### start callbacks
+
+	def select_first_entry(self):
+		column = self.treeview.get_column(0)
+		self.treeview.set_cursor(0, column, True)
 
 	def qty_edited (self, cellrenderertext, path, text):
 		number = re.sub("[^0-9]", "", text)
