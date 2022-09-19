@@ -219,6 +219,19 @@ class GUI:
 	def price_spinbutton_focus_in_event (self, spinbutton, event):
 		GLib.idle_add(spinbutton.select_region, 0, -1)
 
+	def delete_row_clicked_cb (self, button):
+		model, path = self.tree_selection.get_selected_rows()
+		t_iter = self.calc_store.get_iter(path)
+		self.calc_store.remove(t_iter)
+		if self.calc_store.iter_children() == None:
+			self.calc_store.append([0, 0, '0', '0', '0', '0'])
+			GLib.idle_add(self.select_first_entry)
+
+	def clear_all_clicked_cb (self, button):
+		self.calc_store.clear()
+		self.calc_store.append([0, 0, '0', '0', '0', '0'])
+		GLib.idle_add(self.select_first_entry)
+
 	### end callbacks
 
 	def architectural_to_decimal (self, text):
