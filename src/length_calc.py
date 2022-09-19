@@ -43,6 +43,7 @@ class GUI:
 		self.tree_selection = self.builder.get_object("calc_tree_selection")
 
 		window = self.builder.get_object('window')
+		window.fullscreen()
 		window.show_all()
 
 		GLib.timeout_add(150, self.select_first_entry) # wait until window is loaded
