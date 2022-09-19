@@ -262,6 +262,9 @@
                     <property name="model">calc_store</property>
                     <property name="enable-search">False</property>
                     <signal name="key-release-event" handler="treeview_tab_key" swapped="no"/>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="calc_tree_selection"/>
+                    </child>
                     <child>
                       <object class="GtkTreeViewColumn">
                         <property name="sizing">fixed</property>
