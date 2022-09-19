@@ -237,7 +237,10 @@ class GUI:
 	def architectural_to_decimal (self, text):
 		''' Convert architectural measurements to inches.'''
 		# See http://stackoverflow.com/questions/8675714
-		text = re.sub(" ", "-", text).lstrip("-").replace('"', '')
+		text = text.replace("--", "-")
+		text = text.replace(" ", "-")
+		text = text.replace('"', '')
+		text = text.lstrip("-")
 		feet, sep, inches = text.rpartition("'")
 		floatfeet, sep, fracfeet = feet.rpartition('-')
 		feetnum, sep, feetdenom = fracfeet.partition('/')
