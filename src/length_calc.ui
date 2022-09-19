@@ -154,6 +154,8 @@
               <object class="GtkGrid">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="row-homogeneous">True</property>
+                <property name="column-homogeneous">True</property>
                 <child>
                   <object class="GtkButton" id="number_1">
                     <property name="label" translatable="yes">1</property>
@@ -437,6 +439,7 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="orientation">vertical</property>
+            <property name="homogeneous">True</property>
             <child>
               <object class="GtkButton" id="fraction7/8">
                 <property name="label" translatable="yes">7/8</property>
