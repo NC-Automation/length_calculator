@@ -154,7 +154,7 @@ class GUI:
 		if self.edit_widget == None:
 			return
 		number = button.get_label()
-		subprocess.call(['xte', "str 7/8"])
+		subprocess.call(['xte', "str -7/8"])
 		GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
@@ -162,7 +162,7 @@ class GUI:
 		if self.edit_widget == None:
 			return
 		number = button.get_label()
-		subprocess.call(['xte', "str 3/4"])
+		subprocess.call(['xte', "str -3/4"])
 		GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
@@ -170,7 +170,7 @@ class GUI:
 		if self.edit_widget == None:
 			return
 		number = button.get_label()
-		subprocess.call(['xte', "str 5/8"])
+		subprocess.call(['xte', "str -5/8"])
 		GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
@@ -178,7 +178,7 @@ class GUI:
 		if self.edit_widget == None:
 			return
 		number = button.get_label()
-		subprocess.call(['xte', "str 1/2"])
+		subprocess.call(['xte', "str -1/2"])
 		GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
@@ -186,7 +186,7 @@ class GUI:
 		if self.edit_widget == None:
 			return
 		number = button.get_label()
-		subprocess.call(['xte', "str 3/8"])
+		subprocess.call(['xte', "str -3/8"])
 		GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
@@ -194,7 +194,7 @@ class GUI:
 		if self.edit_widget == None:
 			return
 		number = button.get_label()
-		subprocess.call(['xte', "str 1/4"])
+		subprocess.call(['xte', "str -1/4"])
 		GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
@@ -202,7 +202,7 @@ class GUI:
 		if self.edit_widget == None:
 			return
 		number = button.get_label()
-		subprocess.call(['xte', "str 1/8"])
+		subprocess.call(['xte', "str -1/8"])
 		GLib.timeout_add(10, self.edit_widget.editing_done)
 		GLib.timeout_add(15, self.move_cursor_to_next_row)
 
@@ -239,6 +239,7 @@ class GUI:
 	def architectural_to_decimal (self, text):
 		''' Convert architectural measurements to inches.'''
 		# See http://stackoverflow.com/questions/8675714
+		text = re.sub(" ", "-", text).lstrip("-")
 		text = text.replace('"', '').replace(' ', '')
 		feet, sep, inches = text.rpartition("'")
 		floatfeet, sep, fracfeet = feet.rpartition('-')
