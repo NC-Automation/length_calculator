@@ -44,7 +44,10 @@ class GUI:
 
 		window = self.builder.get_object('window')
 		window.fullscreen()
+		display = window.get_display()
+		cursor = Gdk.Cursor.new_for_display(display, Gdk.CursorType.BLANK_CURSOR)		
 		window.show_all()
+		window.get_window().set_cursor(cursor)
 
 		GLib.timeout_add(150, self.select_first_entry) # wait until window is loaded
 
