@@ -198,8 +198,8 @@ class GUI:
 		columns = []
 		for i in [0,1,2]:
 			columns.append(treeview.get_column(i))
-		colnum = columns.index(col)
 		if keyname == "Tab":
+			colnum = columns.index(col)
 			# critical code to keep the 'activate' signal from firing, resulting in skipping a column
 			self.edit_widget.editing_done()  
 			if colnum + 1 < len(columns):
