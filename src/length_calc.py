@@ -25,7 +25,7 @@ from fractions import Fraction
 import os, sys, subprocess, re, decimal
 
 
-UI_FILE = "src/length_calc.ui"
+UI_FILE = "/home/neil/Source/length_calc3/src/length_calc.ui"
 
 
 class GUI:
@@ -48,7 +48,6 @@ class GUI:
 		cursor = Gdk.Cursor.new_for_display(display, Gdk.CursorType.BLANK_CURSOR)		
 		window.show_all()
 		window.get_window().set_cursor(cursor)
-
 		GLib.timeout_add(150, self.select_first_entry) # wait until window is loaded
 
 	def on_window_destroy(self, window):
@@ -236,6 +235,10 @@ class GUI:
 		self.calc_store.append([0, 0, '0', '0', '0', '0'])
 		GLib.idle_add(self.select_first_entry)
 
+	def decimalSwitch_state_set_cb (self, switch, arg):
+		self.convert_total_rows()
+		self.calculate_total_length()
+		
 	### end callbacks
 
 	def architectural_to_decimal (self, text):
@@ -270,6 +273,9 @@ class GUI:
 			self.calc_store[path][4] = '''%s' %s-%s"''' % (feet, int(inches), fractions)
 			self.calc_store[path][5] = str(row_sum)
 		self.calculate_total_length()
+		if self.builder.get_object("decimalSwitch").get_active():
+			self.calc_store[path][4] = str(round(Decimal(self.calc_store[path][5])/12,4))
+
 
 	def calculate_total_length (self):
 		self.total_length = Decimal()
@@ -280,14 +286,39 @@ class GUI:
 		feet = int(self.total_length / 12)
 		inches = self.total_length % 12
 		fractions = Fraction(inches - int(inches))
-		if fractions == 0:
-			label = '''%s' %s"''' % (feet, int(inches))
+		if self.builder.get_object("decimalSwitch").get_active():
+			label = '''%s''' % (round(self.total_length / 12, 4))
 			self.builder.get_object("total_length_label").set_label(label)
-		else:
-			label = '''%s' %s-%s"''' % (feet, int(inches), fractions)
-			self.builder.get_object("total_length_label").set_label(label)
+		else:		
+			if fractions == 0:
+				label = '''%s' %s"''' % (feet, int(inches))
+				self.builder.get_object("total_length_label").set_label(label)
+			else:
+				label = '''%s' %s-%s"''' % (feet, int(inches), fractions)
+				self.builder.get_object("total_length_label").set_label(label)
 		self.builder.get_object("total_qty_label").set_label(str(total_qty))
 		self.calculate_total_price ()
+
+	def convert_total_rows (self):
+		for row in self.calc_store:
+			if self.builder.get_object("decimalSwitch").get_active():
+				row[4] = str(round(Decimal(row[5])/12,4))
+			else:
+				qty = row[0]
+				feet = row[1]
+				inches = row[3]
+				row_sum = Decimal(qty) * (( Decimal(feet) * 12 ) + Decimal(inches) )
+				feet = int(row_sum / 12)
+				inches = row_sum % 12
+				decimal_inch = inches - int(inches)
+				fractions = Fraction(decimal_inch)
+				if fractions == 0:
+					row[4] = '''%s' %s"''' % (feet, int(inches))
+					row[5] = str(row_sum)
+				else:
+					row[4] = '''%s' %s-%s"''' % (feet, int(inches), fractions)
+					row[5] = str(row_sum)
+		
 
 	def calculate_total_price (self):
 		price_per_foot = self.builder.get_object("price_spinbutton").get_text()
