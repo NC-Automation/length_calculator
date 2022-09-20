@@ -65,7 +65,7 @@
               <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="spacing">5</property>
+                <property name="spacing">20</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="visible">True</property>
@@ -82,6 +82,8 @@
                   <object class="GtkSpinButton" id="price_spinbutton">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
+                    <property name="margin-top">20</property>
+                    <property name="margin-bottom">20</property>
                     <property name="xalign">1</property>
                     <property name="adjustment">adjustment1</property>
                     <property name="climb-rate">0.10</property>
@@ -332,7 +334,7 @@
                       <object class="GtkTreeViewColumn">
                         <property name="sizing">autosize</property>
                         <property name="fixed-width">150</property>
-                        <property name="title" translatable="yes">Sum</property>
+                        <property name="title" translatable="yes">Total</property>
                         <child>
                           <object class="GtkCellRendererText"/>
                           <attributes>
@@ -354,6 +356,7 @@
               <object class="GtkBox">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
+                <property name="margin-left">10</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <!-- n-columns=3 n-rows=6 -->
@@ -602,10 +605,12 @@
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="orientation">vertical</property>
+                    <property name="spacing">10</property>
                     <property name="homogeneous">True</property>
                     <child>
                       <object class="GtkButton">
                         <property name="label" translatable="yes">Delete row</property>
+                        <property name="height-request">75</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="receives-default">True</property>
@@ -671,7 +676,7 @@
                   <object class="GtkButton" id="fraction7/8">
                     <property name="label" translatable="yes">7/8</property>
                     <property name="width-request">100</property>
-                    <property name="height-request">100</property>
+                    <property name="height-request">106</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="receives-default">True</property>
