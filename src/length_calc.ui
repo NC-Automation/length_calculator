@@ -130,13 +130,16 @@
                     <property name="can-focus">False</property>
                     <property name="margin-top">5</property>
                     <property name="label-xalign">0</property>
-                    <property name="shadow-type">in</property>
+                    <property name="shadow-type">none</property>
                     <child>
                       <object class="GtkLabel" id="total_length_label">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="label" translatable="yes">0</property>
                         <property name="selectable">True</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
                       </object>
                     </child>
                     <child type="label">
@@ -150,6 +153,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">20</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -160,13 +164,16 @@
                     <property name="can-focus">False</property>
                     <property name="margin-top">5</property>
                     <property name="label-xalign">0</property>
-                    <property name="shadow-type">in</property>
+                    <property name="shadow-type">none</property>
                     <child>
                       <object class="GtkLabel" id="total_price_label">
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="label" translatable="yes">0.00</property>
                         <property name="selectable">True</property>
+                        <attributes>
+                          <attribute name="weight" value="bold"/>
+                        </attributes>
                       </object>
                     </child>
                     <child type="label">
@@ -180,6 +187,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">20</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
@@ -190,7 +198,7 @@
                     <property name="can-focus">False</property>
                     <property name="margin-top">5</property>
                     <property name="label-xalign">0</property>
-                    <property name="shadow-type">in</property>
+                    <property name="shadow-type">none</property>
                     <child>
                       <object class="GtkAlignment">
                         <property name="visible">True</property>
@@ -202,6 +210,9 @@
                             <property name="can-focus">False</property>
                             <property name="label" translatable="yes">0</property>
                             <property name="selectable">True</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
                           </object>
                         </child>
                       </object>
@@ -217,6 +228,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">20</property>
                     <property name="position">3</property>
                   </packing>
                 </child>
@@ -268,7 +280,7 @@
                     <child>
                       <object class="GtkTreeViewColumn">
                         <property name="sizing">fixed</property>
-                        <property name="fixed-width">75</property>
+                        <property name="fixed-width">150</property>
                         <property name="title" translatable="yes">Qty</property>
                         <child>
                           <object class="GtkCellRendererText">
@@ -285,7 +297,7 @@
                     <child>
                       <object class="GtkTreeViewColumn">
                         <property name="sizing">fixed</property>
-                        <property name="fixed-width">75</property>
+                        <property name="fixed-width">150</property>
                         <property name="title" translatable="yes">Feet</property>
                         <child>
                           <object class="GtkCellRendererText">
@@ -302,7 +314,7 @@
                     <child>
                       <object class="GtkTreeViewColumn">
                         <property name="sizing">fixed</property>
-                        <property name="fixed-width">75</property>
+                        <property name="fixed-width">150</property>
                         <property name="title" translatable="yes">Inches</property>
                         <child>
                           <object class="GtkCellRendererText">
@@ -318,8 +330,8 @@
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn">
-                        <property name="sizing">fixed</property>
-                        <property name="fixed-width">75</property>
+                        <property name="sizing">autosize</property>
+                        <property name="fixed-width">150</property>
                         <property name="title" translatable="yes">Sum</property>
                         <child>
                           <object class="GtkCellRendererText"/>
@@ -348,6 +360,8 @@
                   <object class="GtkGrid">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
+                    <property name="row-spacing">10</property>
+                    <property name="column-spacing">10</property>
                     <property name="row-homogeneous">True</property>
                     <property name="column-homogeneous">True</property>
                     <child>
@@ -483,6 +497,8 @@
                     <child>
                       <object class="GtkButton" id="hyphen">
                         <property name="label" translatable="yes">-</property>
+                        <property name="width-request">125</property>
+                        <property name="height-request">125</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="receives-default">True</property>
@@ -649,10 +665,13 @@
                 <property name="can-focus">False</property>
                 <property name="valign">start</property>
                 <property name="orientation">vertical</property>
+                <property name="spacing">10</property>
                 <property name="homogeneous">True</property>
                 <child>
                   <object class="GtkButton" id="fraction7/8">
                     <property name="label" translatable="yes">7/8</property>
+                    <property name="width-request">100</property>
+                    <property name="height-request">100</property>
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="receives-default">True</property>
